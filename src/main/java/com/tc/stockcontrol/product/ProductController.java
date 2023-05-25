@@ -1,5 +1,7 @@
 package com.tc.stockcontrol.product;
 
+import com.tc.stockcontrol.dtos.product.ProductReqDTO;
+import com.tc.stockcontrol.dtos.product.ProductResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +20,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
+    public List<ProductResDTO> getAllProducts() {
         return productService.list();
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Product addProduct(@RequestBody Product product) {
-        return productService.add(product);
+    public ProductResDTO addProduct(@RequestBody ProductReqDTO dto) {
+        return productService.add(dto);
     }
 }
