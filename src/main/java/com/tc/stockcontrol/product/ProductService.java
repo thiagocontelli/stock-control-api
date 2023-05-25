@@ -19,4 +19,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Product add(Product product) {
+        return productRepository.save(product);
+    }
+
 }
