@@ -8,12 +8,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApplicationControllerAdvice {
 
+    private final ErrorResponse errorResponse;
+
+    public ApplicationControllerAdvice(ErrorResponse errorResponse) {
+        this.errorResponse = errorResponse;
+    }
+
     @ExceptionHandler(RecordNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleRecordNotFoundException(RecordNotFoundException e) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setStatus(status);
         errorResponse.setMessage(e.getMessage());
-        return new ResponseEntity<>(errorResponse, status);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException e) {
+        errorResponse.setMessage(e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }
