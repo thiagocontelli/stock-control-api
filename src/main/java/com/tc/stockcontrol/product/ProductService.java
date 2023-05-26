@@ -8,8 +8,6 @@ import com.tc.stockcontrol.errors.BadRequestException;
 import com.tc.stockcontrol.errors.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +35,6 @@ public class ProductService {
     }
 
     public ProductResDTO add(ProductReqDTO dto) {
-        if (dto.name().trim().isEmpty()) {
-            throw new BadRequestException("name_cant_be_empty");
-        }
-
-        if (dto.price() < 0) {
-            throw new BadRequestException("price_cant_be_negative");
-        }
-
-        if (dto.quantity() < 0) {
-            throw new BadRequestException("quantity_cant_be_negative");
-        }
-
-        if (dto.barCode().trim().isEmpty()) {
-            throw new BadRequestException("bar_code_cant_be_empty");
-        }
-
-        if (dto.expirationDate().toInstant().isBefore(Instant.now())) {
-            throw new BadRequestException("expiration_date_cant_be_in_the_past");
-        }
-
         // TODO: find a way to validate category property
 
         Product newProduct = productReqMapper.toEntity(dto);
@@ -73,26 +51,6 @@ public class ProductService {
     }
 
     public ProductResDTO update(String id, ProductReqDTO dto) {
-        if (dto.name().trim().isEmpty()) {
-            throw new BadRequestException("name_cant_be_empty");
-        }
-
-        if (dto.price() < 0) {
-            throw new BadRequestException("price_cant_be_negative");
-        }
-
-        if (dto.quantity() < 0) {
-            throw new BadRequestException("quantity_cant_be_negative");
-        }
-
-        if (dto.barCode().trim().isEmpty()) {
-            throw new BadRequestException("bar_code_cant_be_empty");
-        }
-
-        if (dto.expirationDate().toInstant().isBefore(Instant.now())) {
-            throw new BadRequestException("expiration_date_cant_be_in_the_past");
-        }
-
         return productRepository.findById(id).map(record -> {
             record.setName(dto.name());
             record.setCategory(dto.category());

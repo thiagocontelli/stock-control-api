@@ -4,6 +4,7 @@ import com.tc.stockcontrol.dtos.product.ProductReqDTO;
 import com.tc.stockcontrol.dtos.product.ProductResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ProductResDTO addProduct(@RequestBody ProductReqDTO dto) {
+    public ProductResDTO addProduct(@RequestBody @Validated ProductReqDTO dto) {
         return productService.add(dto);
     }
 
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ProductResDTO updateProduct(@PathVariable String id, @RequestBody ProductReqDTO dto) {
+    public ProductResDTO updateProduct(@PathVariable String id, @RequestBody @Validated ProductReqDTO dto) {
         return productService.update(id, dto);
     }
 }
