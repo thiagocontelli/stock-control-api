@@ -22,4 +22,4 @@ A API for Stock Control in Java with Spring Boot.
 
 </br>
 
--- ***For study purposes*** --
+-- ***A project for study purposes*** --
