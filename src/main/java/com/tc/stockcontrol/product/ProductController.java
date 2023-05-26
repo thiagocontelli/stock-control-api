@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
+@CrossOrigin(origins = "http://localhost:5173/", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST})
 public class ProductController {
 
     private final ProductService productService;
@@ -28,5 +29,10 @@ public class ProductController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public ProductResDTO addProduct(@RequestBody ProductReqDTO dto) {
         return productService.add(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") String id) {
+        productService.delete(id);
     }
 }
