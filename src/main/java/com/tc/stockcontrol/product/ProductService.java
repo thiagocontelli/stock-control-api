@@ -72,4 +72,36 @@ public class ProductService {
         productRepository.delete(product);
     }
 
+    public ProductResDTO update(String id, ProductReqDTO dto) {
+        if (dto.name().trim().isEmpty()) {
+            throw new BadRequestException("name_cant_be_empty");
+        }
+
+        if (dto.price() < 0) {
+            throw new BadRequestException("price_cant_be_negative");
+        }
+
+        if (dto.quantity() < 0) {
+            throw new BadRequestException("quantity_cant_be_negative");
+        }
+
+        if (dto.barCode().trim().isEmpty()) {
+            throw new BadRequestException("bar_code_cant_be_empty");
+        }
+
+        if (dto.expirationDate().toInstant().isBefore(Instant.now())) {
+            throw new BadRequestException("expiration_date_cant_be_in_the_past");
+        }
+
+        return productRepository.findById(id).map(record -> {
+            record.setName(dto.name());
+            record.setCategory(dto.category());
+            record.setPrice(dto.price());
+            record.setQuantity(dto.quantity());
+            record.setBarCode(dto.barCode());
+            record.setExpirationDate(dto.expirationDate());
+            Product updated = productRepository.save(record);
+            return productResMapper.toDTO(updated);
+        }).orElseThrow(RecordNotFoundException::new);
+    }
 }
