@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
-@CrossOrigin(origins = "http://localhost:5173/", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:5173/", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class ProductController {
 
     private final ProductService productService;
@@ -32,7 +32,12 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") String id) {
+    public void deleteProduct(@PathVariable String id) {
         productService.delete(id);
+    }
+
+    @PutMapping("{id}")
+    public ProductResDTO updateProduct(@PathVariable String id, @RequestBody ProductReqDTO dto) {
+        return productService.update(id, dto);
     }
 }
