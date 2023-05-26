@@ -5,6 +5,7 @@ import com.tc.stockcontrol.dtos.product.ProductReqMapper;
 import com.tc.stockcontrol.dtos.product.ProductResDTO;
 import com.tc.stockcontrol.dtos.product.ProductResMapper;
 import com.tc.stockcontrol.errors.BadRequestException;
+import com.tc.stockcontrol.errors.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,14 @@ public class ProductService {
         Product newProduct = productReqMapper.toEntity(dto);
         Product product = productRepository.save(newProduct);
         return productResMapper.toDTO(product);
+    }
+
+    public void delete(String id) {
+        if (id.trim().isEmpty()) {
+            throw new BadRequestException("id_cant_be_empty");
+        }
+        Product product = productRepository.findById(id).orElseThrow(RecordNotFoundException::new);
+        productRepository.delete(product);
     }
 
 }
