@@ -1,10 +1,10 @@
 package com.tc.stockcontrol.errors;
 
 import lombok.Data;
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 public class ErrorResponse {
-    private HttpStatus status;
     private String message;
 }
