@@ -17,7 +17,6 @@ A API for Stock Control in Java with Spring Boot.
 **Technologies used:**
 - Spring Boot;
 - Jpa;
-- Lombok;
 - MySQL.
 
 </br>
