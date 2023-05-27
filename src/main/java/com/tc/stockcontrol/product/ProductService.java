@@ -8,6 +8,7 @@ import com.tc.stockcontrol.errors.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ProductService {
     }
 
     public WithPaginationResDTO<List<ProductResDTO>> list(Integer page, Integer size) {
-        Page<Product> productsWithPageData = productRepository.findAll(PageRequest.of(page, size));
+        Page<Product> productsWithPageData = productRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")));
 
         List<Product> products = productsWithPageData.toList();
 
