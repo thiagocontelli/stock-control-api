@@ -1,5 +1,6 @@
 package com.tc.stockcontrol.product;
 
+import com.tc.stockcontrol.dtos.WithPaginationResDTO;
 import com.tc.stockcontrol.dtos.product.ProductReqDTO;
 import com.tc.stockcontrol.dtos.product.ProductResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResDTO> getAllProducts() {
-        return productService.list();
+    public WithPaginationResDTO<List<ProductResDTO>> getAllProducts(@RequestParam(required = false, defaultValue = "0") Integer page, @RequestParam(required = false, defaultValue = "30") Integer size) {
+        return productService.list(page, size);
     }
 
     @PostMapping
