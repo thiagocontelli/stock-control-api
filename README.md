@@ -7,7 +7,7 @@
 A API for Stock Control in Java with Spring Boot.
 
 **Features:**
-- List all products;
+- List all products with pagination;
 - Add a new product;
 - Update a product;
 - Delete a product.
