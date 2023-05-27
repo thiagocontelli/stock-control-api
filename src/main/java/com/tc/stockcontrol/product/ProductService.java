@@ -1,13 +1,15 @@
 package com.tc.stockcontrol.product;
 
-import com.tc.stockcontrol.dtos.product.ProductReqDTO;
-import com.tc.stockcontrol.dtos.product.ProductReqMapper;
-import com.tc.stockcontrol.dtos.product.ProductResDTO;
-import com.tc.stockcontrol.dtos.product.ProductResMapper;
+import com.tc.stockcontrol.dtos.WithPaginationResDTO;
+import com.tc.stockcontrol.dtos.WithPaginationResMapper;
+import com.tc.stockcontrol.dtos.product.*;
 import com.tc.stockcontrol.errors.BadRequestException;
 import com.tc.stockcontrol.errors.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,21 +19,28 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductReqMapper productReqMapper;
     private final ProductResMapper productResMapper;
+    private final WithPaginationResMapper withPaginationResMapper;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductReqMapper productReqMapper, ProductResMapper productResMapper) {
+    public ProductService(ProductRepository productRepository, ProductReqMapper productReqMapper, ProductResMapper productResMapper, WithPaginationResMapper withPaginationResMapper) {
         this.productRepository = productRepository;
         this.productReqMapper = productReqMapper;
         this.productResMapper = productResMapper;
+        this.withPaginationResMapper = withPaginationResMapper;
     }
 
-    public List<ProductResDTO> list() {
-        List<Product> products = productRepository.findAll();
-        List<ProductResDTO> dto = new ArrayList<>(products.size());
-        for (int i = 0; i < products.size(); i++) {
-            dto.add(i, productResMapper.toDTO(products.get(i)));
-        }
-        return dto;
+    public WithPaginationResDTO<List<ProductResDTO>> list(Integer page, Integer size) {
+        Page<Product> productsWithPageData = productRepository.findAll(PageRequest.of(page, size));
+
+        List<Product> products = productsWithPageData.toList();
+
+        List<ProductResDTO> productsResDTO = new ArrayList<>(products.size());
+
+        products.forEach(product -> {
+            productsResDTO.add(productResMapper.toDTO(product));
+        });
+
+        return withPaginationResMapper.toDTO(productsResDTO, productsWithPageData.getNumber(), productsWithPageData.getTotalPages(), productsWithPageData.getTotalElements());
     }
 
     public ProductResDTO add(ProductReqDTO dto) {
