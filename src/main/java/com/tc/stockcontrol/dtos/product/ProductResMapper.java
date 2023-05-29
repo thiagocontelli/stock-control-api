@@ -9,6 +9,6 @@ public class ProductResMapper {
         if (product == null) {
             return null;
         }
-        return new ProductResDTO(product.getId(), product.getName(), product.getPrice(), product.getCategory(), product.getQuantity(), product.getBarCode(), product.getExpirationDate(), product.getCreatedAt());
+        return new ProductResDTO(product.getId(), product.getName(), product.getPrice(), product.getCategory().getValue(), product.getQuantity(), product.getBarCode(), product.getExpirationDate(), product.getCreatedAt());
     }
 }

@@ -45,8 +45,6 @@ public class ProductService {
     }
 
     public ProductResDTO add(ProductReqDTO dto) {
-        // TODO: find a way to validate category property
-
         Product newProduct = productReqMapper.toEntity(dto);
         Product product = productRepository.save(newProduct);
         return productResMapper.toDTO(product);
@@ -63,7 +61,7 @@ public class ProductService {
     public ProductResDTO update(String id, ProductReqDTO dto) {
         return productRepository.findById(id).map(record -> {
             record.setName(dto.name());
-            record.setCategory(dto.category());
+            record.setCategory(productReqMapper.convertValueToCategory(dto.category()));
             record.setPrice(dto.price());
             record.setQuantity(dto.quantity());
             record.setBarCode(dto.barCode());
