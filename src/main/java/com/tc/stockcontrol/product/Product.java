@@ -1,5 +1,7 @@
 package com.tc.stockcontrol.product;
 
+import com.tc.stockcontrol.product.enums.Category;
+import com.tc.stockcontrol.product.enums.CategoryConverter;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +22,8 @@ public class Product {
     Double price;
 
     @Column(name = "category", nullable = false)
-    Integer category;
+    @Convert(converter = CategoryConverter.class)
+    Category category;
 
     @Column(name = "quantity", nullable = false)
     Integer quantity;
