@@ -15,8 +15,7 @@ public record ProductReqDTO(
         @Positive
         Double price,
 
-        @Positive
-        Integer category,
+        String category,
 
         @Positive
         Integer quantity,

@@ -18,8 +18,7 @@ public record ProductResDTO(
         @Positive
         Double price,
 
-        @Positive
-        Integer category,
+        String category,
 
         @Positive
         Integer quantity,
