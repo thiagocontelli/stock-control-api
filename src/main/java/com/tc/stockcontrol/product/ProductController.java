@@ -1,8 +1,8 @@
 package com.tc.stockcontrol.product;
 
 import com.tc.stockcontrol.dtos.WithPaginationResDTO;
-import com.tc.stockcontrol.dtos.product.ProductReqDTO;
-import com.tc.stockcontrol.dtos.product.ProductResDTO;
+import com.tc.stockcontrol.product.dtos.ProductReqDTO;
+import com.tc.stockcontrol.product.dtos.ProductResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;

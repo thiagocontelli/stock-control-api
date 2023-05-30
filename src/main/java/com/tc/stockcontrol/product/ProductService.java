@@ -2,9 +2,12 @@ package com.tc.stockcontrol.product;
 
 import com.tc.stockcontrol.dtos.WithPaginationResDTO;
 import com.tc.stockcontrol.dtos.WithPaginationResMapper;
-import com.tc.stockcontrol.dtos.product.*;
 import com.tc.stockcontrol.errors.BadRequestException;
 import com.tc.stockcontrol.errors.RecordNotFoundException;
+import com.tc.stockcontrol.product.dtos.ProductReqDTO;
+import com.tc.stockcontrol.product.dtos.ProductReqMapper;
+import com.tc.stockcontrol.product.dtos.ProductResDTO;
+import com.tc.stockcontrol.product.dtos.ProductResMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

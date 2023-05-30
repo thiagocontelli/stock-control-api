@@ -1,4 +1,4 @@
-package com.tc.stockcontrol.dtos.product;
+package com.tc.stockcontrol.product.dtos;
 
 import com.tc.stockcontrol.errors.BadRequestException;
 import com.tc.stockcontrol.product.enums.Category;

@@ -1,4 +1,4 @@
-package com.tc.stockcontrol.dtos.product;
+package com.tc.stockcontrol.product.dtos;
 
 import com.tc.stockcontrol.product.Product;
 import org.springframework.stereotype.Component;
