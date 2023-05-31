@@ -1,10 +1,8 @@
 # Stock Control API in Java with Spring Boot
 
-<!-- <div align="center">
-  <img style="width: 300px;" src="https://media.giphy.com/media/l2aQDfA2Ky15oxtYLn/giphy-downsized-large.gif" />
+<div align="center">
+  <img style="width: 250px;" src="https://media.giphy.com/media/l2aQDfA2Ky15oxtYLn/giphy-downsized-large.gif" />
 </div>
-
-</br> -->
 
 This is a simple API for stock control implemented in Java using the Spring Boot framework. It provides basic CRUD (Create, Read, Update, Delete) operations for managing products.
 
