@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
