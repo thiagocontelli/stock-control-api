@@ -1,9 +1,6 @@
 package com.tc.stockcontrol.auth;
 
-import com.tc.stockcontrol.auth.dtos.LoginReqDTO;
-import com.tc.stockcontrol.auth.dtos.LoginResDTO;
-import com.tc.stockcontrol.auth.dtos.SignUpReqDTO;
-import com.tc.stockcontrol.auth.dtos.SignUpResDTO;
+import com.tc.stockcontrol.auth.dtos.*;
 import com.tc.stockcontrol.infra.security.TokenService;
 import com.tc.stockcontrol.user.User;
 import jakarta.validation.Valid;
@@ -52,5 +49,10 @@ public class AuthController {
         var tokenJwt = tokenService.generateToken((User) authentication.getPrincipal());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new SignUpResDTO(tokenJwt));
+    }
+
+    @PostMapping("/validate_email")
+    public void validateEmail(@RequestBody @Valid ValidateEmailReqDTO dto) {
+        authService.validateEmail(dto);
     }
 }
