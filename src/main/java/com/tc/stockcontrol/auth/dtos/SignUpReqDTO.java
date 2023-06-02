@@ -1,5 +1,6 @@
 package com.tc.stockcontrol.auth.dtos;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -10,7 +11,8 @@ public record SignUpReqDTO(
 
         @NotBlank
         @NotEmpty
-        String login,
+        @Email
+        String email,
 
         @NotBlank
         @NotEmpty

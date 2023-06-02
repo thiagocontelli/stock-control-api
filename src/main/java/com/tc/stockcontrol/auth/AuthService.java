@@ -19,19 +19,19 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByLogin(username);
+        return userRepository.findByEmail(username);
     }
 
     public void signUp(SignUpReqDTO dto) {
         var encryptedPassword = encryptPassword(dto.password());
 
-        var existingUser = userRepository.findByLogin(dto.login());
+        var existingUser = userRepository.findByEmail(dto.email());
 
         if (existingUser != null) {
             throw new BadRequestException("user_already_exists");
         }
 
-        userRepository.save(User.builder().name(dto.name()).login(dto.login()).password(encryptedPassword).build());
+        userRepository.save(User.builder().name(dto.name()).email(dto.email()).password(encryptedPassword).build());
     }
 
     private String encryptPassword(String password) {

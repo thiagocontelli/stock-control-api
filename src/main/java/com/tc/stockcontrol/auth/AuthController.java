@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResDTO> login(@RequestBody @Valid LoginReqDTO dto) {
-        var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
+        var token = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
 
         var authentication = authenticationManager.authenticate(token);
 
@@ -45,7 +45,7 @@ public class AuthController {
     public ResponseEntity<SignUpResDTO> signUp(@RequestBody @Valid SignUpReqDTO dto) {
         authService.signUp(dto);
 
-        var token = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
+        var token = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
 
         var authentication = authenticationManager.authenticate(token);
 
