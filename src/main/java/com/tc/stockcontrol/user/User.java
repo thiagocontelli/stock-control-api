@@ -33,6 +33,12 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "is_email_valid", nullable = false)
+    private Boolean isEmailValid;
+
+    @Column(name = "email_validation_code", nullable = true)
+    private Integer emailValidationCode;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
