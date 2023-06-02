@@ -38,8 +38,13 @@ public class ProductController {
         productService.delete(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ProductResDTO updateProduct(@PathVariable String id, @RequestBody @Validated ProductReqDTO dto) {
         return productService.update(id, dto);
+    }
+
+    @GetMapping("/{barCode}")
+    public ProductResDTO getOneByBarCode(@PathVariable String barCode) {
+        return productService.listOneByBarCode(barCode);
     }
 }
