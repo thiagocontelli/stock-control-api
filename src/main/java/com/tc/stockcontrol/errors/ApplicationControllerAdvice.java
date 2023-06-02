@@ -34,4 +34,10 @@ public class ApplicationControllerAdvice {
         errorResponse.setMessage((Objects.requireNonNull(e.getFieldError()).getField() + " " + e.getFieldError().getDefaultMessage()).replaceAll(" ", "_"));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponse> handleConflictException(ConflictException e) {
+        errorResponse.setMessage(e.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
 }
