@@ -13,28 +13,28 @@ import java.util.Date;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    private String id;
 
     @Column(name = "name", nullable = false)
-    String name;
+    private String name;
 
     @Column(name = "price", nullable = false)
-    Double price;
+    private Double price;
 
     @Column(name = "category", nullable = false)
     @Convert(converter = CategoryConverter.class)
-    Category category;
+    private Category category;
 
     @Column(name = "quantity", nullable = false)
-    Integer quantity;
+    private Integer quantity;
 
     @Column(name = "expiration_date", nullable = false)
-    Date expirationDate;
+    private Date expirationDate;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    Date createdAt;
+    private Date createdAt;
 
     @Column(name = "bar_code", nullable = false, unique = true)
-    String barCode;
+    private String barCode;
 }
