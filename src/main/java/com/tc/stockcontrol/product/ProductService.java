@@ -3,6 +3,7 @@ package com.tc.stockcontrol.product;
 import com.tc.stockcontrol.dtos.WithPaginationResDTO;
 import com.tc.stockcontrol.dtos.WithPaginationResMapper;
 import com.tc.stockcontrol.errors.BadRequestException;
+import com.tc.stockcontrol.errors.ConflictException;
 import com.tc.stockcontrol.errors.RecordNotFoundException;
 import com.tc.stockcontrol.product.dtos.ProductReqDTO;
 import com.tc.stockcontrol.product.dtos.ProductReqMapper;
@@ -48,6 +49,10 @@ public class ProductService {
     }
 
     public ProductResDTO add(ProductReqDTO dto) {
+        if (barCodeExists(dto.barCode())) {
+            throw new ConflictException("barCode_already_exist");
+        }
+
         Product newProduct = productReqMapper.toEntity(dto);
         Product product = productRepository.save(newProduct);
         return productResMapper.toDTO(product);
@@ -62,6 +67,10 @@ public class ProductService {
     }
 
     public ProductResDTO update(String id, ProductReqDTO dto) {
+        if (barCodeExists(dto.barCode())) {
+            throw new ConflictException("barCode_already_exist");
+        }
+
         return productRepository.findById(id).map(record -> {
             record.setName(dto.name());
             record.setCategory(productReqMapper.convertValueToCategory(dto.category()));
@@ -72,5 +81,21 @@ public class ProductService {
             Product updated = productRepository.save(record);
             return productResMapper.toDTO(updated);
         }).orElseThrow(RecordNotFoundException::new);
+    }
+
+    public ProductResDTO listOneByBarCode(String barCode) {
+        Product product = productRepository.findByBarCode(barCode);
+
+        if (product == null) {
+            throw new RecordNotFoundException();
+        }
+
+        return productResMapper.toDTO(product);
+    }
+
+    private boolean barCodeExists(String barCode) {
+        Product existingBarCode = productRepository.findByBarCode(barCode);
+
+        return existingBarCode != null;
     }
 }
