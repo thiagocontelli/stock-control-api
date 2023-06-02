@@ -35,6 +35,6 @@ public class Product {
     @Column(name = "created_at", nullable = false, updatable = false)
     Date createdAt;
 
-    @Column(name = "bar_code", nullable = false)
+    @Column(name = "bar_code", nullable = false, unique = true)
     String barCode;
 }
