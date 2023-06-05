@@ -55,4 +55,9 @@ public class AuthController {
     public void validateEmail(@RequestBody @Valid ValidateEmailReqDTO dto) {
         authService.validateEmail(dto);
     }
+
+    @PostMapping("/resend_validation_code")
+    public void resendValidationCode(@RequestBody @Valid ResendValidationCodeReqDTO dto) {
+        authService.resendValidationCode(dto);
+    }
 }

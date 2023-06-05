@@ -1,5 +1,6 @@
 package com.tc.stockcontrol.auth;
 
+import com.tc.stockcontrol.auth.dtos.ResendValidationCodeReqDTO;
 import com.tc.stockcontrol.auth.dtos.SignUpReqDTO;
 import com.tc.stockcontrol.auth.dtos.ValidateEmailReqDTO;
 import com.tc.stockcontrol.errors.BadRequestException;
@@ -74,6 +75,7 @@ public class AuthService implements UserDetailsService {
             helper.setTo(to);
             helper.setSubject("E-mail Validation");
         } catch (MessagingException e) {
+            System.out.println(e.getMessage());
             throw new ServerException("error_while_send_email");
         }
 
@@ -105,6 +107,20 @@ public class AuthService implements UserDetailsService {
 
         user.setIsEmailValid(true);
         user.setEmailValidationCode(null);
+
+        userRepository.save(user);
+    }
+
+    public void resendValidationCode(ResendValidationCodeReqDTO dto) {
+        User user = userRepository.findByEmail(dto.email());
+
+        if (user == null) {
+            throw new RecordNotFoundException();
+        }
+
+        var code = sendEmailValidationCode(dto.email());
+
+        user.setEmailValidationCode(code);
 
         userRepository.save(user);
     }
